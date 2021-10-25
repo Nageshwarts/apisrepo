@@ -40,16 +40,16 @@ public class controller {
 		//getting distance from input and doing necessary  operation on data
 		distance1=od.getDistance();
 		if(distance1>=0&&distance1<10) {
-			totalsum+=50;
+			totalsum+=5000;
 		}
 		else if(distance1>=10&&distance1<20) {
-			totalsum+=100;
+			totalsum+=10000;
 		}
 		else if(distance1>=20&&distance1<50) {
-			totalsum+=500;
+			totalsum+=50000;
 		}
 		else {
-			totalsum+=1000;
+			totalsum+=100000;
 		}
 		
 		offer1=od.getOffer();
@@ -65,16 +65,16 @@ public class controller {
 		//checking the offer type is Delivery or not
 		else if(offer1.get("offer_type").equals("Delivery")) {
 			if(distance1>=0&&distance1<10) {
-				totalsum-=50;
+				totalsum-=5000;
 			}
 			else if(distance1>=10&&distance1<20) {
-				totalsum-=100;
+				totalsum-=10000;
 			}
 			else if(distance1>=20&&distance1<50) {
-				totalsum-=500;
+				totalsum-=50000;
 			}
 			else {
-				totalsum-=1000;
+				totalsum-=100000;
 			}
 			order_total.put("order_total", totalsum);
 			return order_total;
