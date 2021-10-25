@@ -20,7 +20,7 @@ public class controller {
 	
 	//declaring list to store the order items
 	private List<items> order_items1=new ArrayList();
-	private int distance1;
+	private float distance1;
 	
 	//declaring a local map to store the offers
 	private Map<String,String> offer1=new HashMap();
@@ -39,6 +39,7 @@ public class controller {
 		
 		//getting distance from input and doing necessary  operation on data
 		distance1=od.getDistance();
+		distance1=distance1/1000;
 		if(distance1>=0&&distance1<10) {
 			totalsum+=5000;
 		}
