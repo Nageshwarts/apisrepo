@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.example.demo.controller.distance.distance1;
 import com.example.demo.items.items;
 import com.example.demo.order.order;
 
@@ -20,38 +21,36 @@ public class controller {
 	
 	//declaring list to store the order items
 	private List<items> order_items1=new ArrayList();
-	private float distance1;
+	private float distance2;
 	
 	//declaring a local map to store the offers
 	private Map<String,String> offer1=new HashMap();
 	
 	//declaring a local hashmap to return the data as json
 	private HashMap<String,Integer> order_total=new HashMap<String,Integer>();
-	
+	int sum2;
 	//getting the data from user
 	@PostMapping("/api")
 	public HashMap fun(@RequestBody order od ) {
 		
 		//storing the oder items in local variable and iterate over the required data in a list
 		order_items1=od.getOrder_items();
-		for(items i:order_items1)
+		for(items i:order_items1) 
 			totalsum+=i.getPrice()*i.getQuantity();
 		
+		int sum2=totalsum;
 		//getting distance from input and doing necessary  operation on data
-		distance1=od.getDistance();
-		distance1=distance1/1000;
-		if(distance1>=0&&distance1<10) {
-			totalsum+=5000;
-		}
-		else if(distance1>=10&&distance1<20) {
-			totalsum+=10000;
-		}
-		else if(distance1>=20&&distance1<50) {
-			totalsum+=50000;
-		}
-		else {
-			totalsum+=100000;
-		}
+		distance2=od.getDistance();
+		distance2=distance2/1000;
+		
+		distance1 d1 = null;
+		
+		 d1.check(distance2);
+		
+		 
+		order_total.put("order_total", totalsum);
+		
+		
 		
 		offer1=od.getOffer();
 	   //checking the offer type is Flat		
@@ -65,25 +64,16 @@ public class controller {
 		
 		//checking the offer type is Delivery or not
 		else if(offer1.get("offer_type").equals("Delivery")) {
-			if(distance1>=0&&distance1<10) {
-				totalsum-=5000;
-			}
-			else if(distance1>=10&&distance1<20) {
-				totalsum-=10000;
-			}
-			else if(distance1>=20&&distance1<50) {
-				totalsum-=50000;
-			}
-			else {
-				totalsum-=100000;
-			}
-			order_total.put("order_total", totalsum);
-			return order_total;
-		}
-		else {
-			order_total.put("order_total", totalsum);
-			return order_total;
-		}
+			
+		order_total.put("order_total",sum2);
+		return order_total;
+			
 	}
+		else {
+			order_total.put("oredr_total",totalsum);
+			return order_total;
+		}
 
+		
+}
 }
